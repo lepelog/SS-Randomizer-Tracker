@@ -3,6 +3,7 @@ import keyDownWrapper from '../../../KeyDownWrapper';
 import { useDispatch, useSelector } from 'react-redux';
 import { totalGratitudeCrystalsSelector } from '../../../selectors/LogicOutput';
 import { clickItem } from '../../../state/Tracker';
+import ItemLocationTooltip from '../../ItemLocationTooltip';
 
 type GratitudeCrystalsProps = {
     images?: string[];
@@ -36,20 +37,22 @@ const GratitudeCrystals = (props: GratitudeCrystalsProps) => {
         itemImages = images;
     }
     return (
-        <div
-            className={`item-container ${className}`}
-            onClick={handleClick}
-            onContextMenu={handleClick}
-            onKeyDown={keyDownWrapper(handleClick)}
-            role="button"
-            tabIndex={0}
-        >
-            <img
-                src={itemImages[current]}
-                alt="Gratitude Crystals"
-                width={imgWidth}
-            />
-        </div>
+        <ItemLocationTooltip item="Gratitude Crystal Pack">
+            <div
+                className={`item-container ${className}`}
+                onClick={handleClick}
+                onContextMenu={handleClick}
+                onKeyDown={keyDownWrapper(handleClick)}
+                role="button"
+                tabIndex={0}
+            >
+                <img
+                    src={itemImages[current]}
+                    alt="Gratitude Crystals"
+                    width={imgWidth}
+                />
+            </div>
+        </ItemLocationTooltip>
     );
 };
 

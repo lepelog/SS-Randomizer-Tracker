@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clickItem } from '../state/Tracker';
 import { itemCountSelector } from '../selectors/Inventory';
 import { InventoryItem } from '../logic/Inventory';
+import ItemLocationTooltip from './ItemLocationTooltip';
 
 type ItemProps = {
     images?: string[];
@@ -53,17 +54,19 @@ const Item = (props: ItemProps) => {
     };
 
     return (
-        <div
-            className={`item-container ${className}`}
-            style={style}
-            onClick={handleClick}
-            onContextMenu={handleClick}
-            onKeyDown={keyDownWrapper(handleClick)}
-            role="button"
-            tabIndex={0}
-        >
-            <img src={itemImages[current]} alt={itemName} width={imgWidth} />
-        </div>
+        <ItemLocationTooltip item={itemName}>
+            <div
+                className={`item-container ${className}`}
+                style={style}
+                onClick={handleClick}
+                onContextMenu={handleClick}
+                onKeyDown={keyDownWrapper(handleClick)}
+                role="button"
+                tabIndex={0}
+            >
+                <img src={itemImages[current]} alt={itemName} width={imgWidth} />
+            </div>
+        </ItemLocationTooltip>
     );
 };
 

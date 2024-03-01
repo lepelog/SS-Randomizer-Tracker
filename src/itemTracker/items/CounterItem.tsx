@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clickItem } from '../../state/Tracker';
 import { itemCountSelector } from '../../selectors/Inventory';
 import { InventoryItem } from '../../logic/Inventory';
+import ItemLocationTooltip from '../ItemLocationTooltip';
 
 type CounterItemProps = {
     images?: string[];
@@ -13,7 +14,6 @@ type CounterItemProps = {
     ignoreItemClass: boolean;
     styleProps?: CSSProperties;
     grid?: boolean;
-    asSpan?: boolean;
     fontSize: number;
 };
 
@@ -24,7 +24,6 @@ const CounterItem = (props: CounterItemProps) => {
         imgWidth,
         ignoreItemClass,
         grid,
-        asSpan,
         fontSize,
     } = props;
 
@@ -58,9 +57,9 @@ const CounterItem = (props: CounterItemProps) => {
     styleProps.textAlign = 'center';
     const className = ignoreItemClass ? '' : 'item';
 
-    if (asSpan) {
-        return (
-            <span
+    return (
+        <ItemLocationTooltip item={itemName}>
+            <div
                 className={`item-container ${className}`}
                 style={styleProps}
                 onClick={handleClick}
@@ -77,9 +76,9 @@ const CounterItem = (props: CounterItemProps) => {
                             top: '50%',
                             left: '50%',
                             transform: 'translate(-50%, -50%)',
-                            background: 'var(--scheme-background)',
-                            width: '80%',
-                            height: '150%',
+                            background: 'grey',
+                            width: '40%',
+                            height: '60%',
                             fontSize,
                             pointerEvents: 'none',
                         }}
@@ -96,48 +95,8 @@ const CounterItem = (props: CounterItemProps) => {
                         </p>
                     </div>
                 )}
-            </span>
-        );
-    }
-    return (
-        <div
-            className={`item-container ${className}`}
-            style={styleProps}
-            onClick={handleClick}
-            onContextMenu={handleClick}
-            onKeyDown={keyDownWrapper(handleClick)}
-            role="button"
-            tabIndex={0}
-        >
-            <img src={image} alt={itemName} width={imgWidth} />
-            {current > 0 && (
-                <div
-                    style={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                        background: 'grey',
-                        width: '40%',
-                        height: '60%',
-                        fontSize,
-                        pointerEvents: 'none',
-                    }}
-                >
-                    <p
-                        style={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                        }}
-                    >
-                        {current}
-                    </p>
-                </div>
-            )}
-        </div>
-    );
+            </div>
+        </ItemLocationTooltip>);
 };
 
 export default CounterItem;
